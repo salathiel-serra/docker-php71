@@ -7,17 +7,20 @@ git clone https://github.com/salathiel-serra/docker-php71.git
 ```
 
 Antes de executar o container, precisamos destacar alguns pontos: <br>
-1) O sucesso para execução do container dependente de uma rede chamada: ```stc_nw``` , <br> 
+1) Duplique o arquivo ```.env-example``` e renomeie o novo arquivo como: ```.env``` , <br> 
+O **.env** será responsável por permitir alterações em parâmetros do arquivo docker-compose, sem a necessidade de alterarmos diretamente o arquivo
+
+2) O sucesso para execução do container dependente de uma rede chamada: ```stc_nw``` , <br> 
 para verificar a existência da rede, execute: ```docker network ls``` , <br> 
-caso precise criar a rede, execute: ```docker network create --driver bridge stc_nw``` <br>
-OBS: você poderá nomear a rede conforme sua necesssidade, basta alterar o arquivo docker-compose.yml
+caso precise criar a rede, execute: ```docker network create stc_nw``` <br>
+OBS: você poderá nomear a rede conforme sua necesssidade, para isso basta alterar o parâmetro ```NETWORK_NAME``` no **.env**
 
-2) O arquivo docker-compose.yml mapeia no host a porta: ```8060```, <br>
-Ajuste a definição de porta no arquivo conforme a sua necessidade
+3) O arquivo docker-compose.yml mapeia no host a porta: ```8060```, <br>
+Ajuste a definição de porta no arquivo conforme a sua necessidade, para isso basta alterar o parâmetro ```CONTAINER_PORTS``` no **.env**
 
-3) O container será nomeado da seguinte forma após inicialização: ```[nome projeto]_container```
+4) O arquivo **.env** possui ainda 0 parâmetro ```CONTAINER_NAME``` , ele permite alteração no nome do container com base no projeto em execução 
 
-4) A pasta ```apache/logs/``` mapeia os arquivos de logs do servidor, em caso de erro acesse com maior facilidade esses dados
+5) A pasta ```apache/logs/``` mapeia os arquivos de logs do servidor, em caso de erro acesse com maior facilidade esses dados
 
 <br> <hr> <br> 
 
@@ -33,7 +36,7 @@ caso tenha alterado à porta, informe a porta mapeada.
 
 Para visualizar os containers em execução, digite: ```docker ps```
 
-Para acessar o container, digite: ```docker exec -it [nome projeto]_container bash```
+Para acessar o container, digite: ```docker exec -it [nome_container] bash```
 
 <br> <hr> <br> 
 

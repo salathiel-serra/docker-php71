@@ -3,22 +3,20 @@ version: "3.8"
 networks:
   default:
     external:
-      name: stc_nw
+      name: ${NETWORK_NAME}
     
 services: 
-  transparencia:
+  app:
     image: thielserra/ubuntu2204-apache-php71
     tty: true
-    container_name: ${PWD%/*/*}_container
+    container_name: ${CONTAINER_NAME}
     entrypoint: sh /docker-entrypoint.sh 
     restart: "always"
     volumes:
       - "../:/var/www/html"
-      # - "./php/php.ini:/etc/php.ini"
-      # - "./apache/apache2.conf:/etc/apache2/apache2.conf"
       - "./apache/sites-available:/etc/apache2/sites-available"
       - "./apache/logs:/var/log/apache2"
     ports:
-      - "8060:80"
+      - ${CONTAINER_PORTS}
     networks:
       - default
